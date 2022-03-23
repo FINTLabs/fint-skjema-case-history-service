@@ -25,17 +25,17 @@ public class CaseHistoryController {
         return ResponseEntity.ok(eventRepository.findAll());
     }
 
-    @GetMapping("hendelser/correlationId/{correlationId}")
+    @GetMapping("hendelser/korrelasjonsid/{correlationId}")
     public ResponseEntity<Collection<Event>> getEventsByCorrelationId(@PathVariable Long correlationId) {
         return ResponseEntity.ok(eventRepository.findAllByCorrelationId(correlationId));
     }
 
-    @GetMapping("hendelser/instanceId/{instanceId}")
+    @GetMapping("hendelser/instansid/{instanceId}")
     public ResponseEntity<Collection<Event>> getEventsByInstanceId(@PathVariable Long instanceId) {
         return ResponseEntity.ok(eventRepository.findAllByInstanceId(instanceId));
     }
 
-    @GetMapping("hendelser/integrationId/{integrationId}")
+    @GetMapping("hendelser/integrasjonsid/{integrationId}")
     public ResponseEntity<Collection<Event>> getEventsByIntegrationId(@PathVariable String integrationId) {
         return ResponseEntity.ok(eventRepository.findAllBySourceApplicationIntegrationId(integrationId));
     }
