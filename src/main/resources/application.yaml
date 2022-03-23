@@ -8,7 +8,7 @@ spring:
     consumer:
       group-id: fint-skjema-case-history-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/fint-skjema-case-history-service-postgres
     username: postgres
     password: password
   jpa:
