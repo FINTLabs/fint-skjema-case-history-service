@@ -55,7 +55,7 @@
 //                    event.setTimestamp(LocalDateTime.parse(getHeaderValue(headers, "timestamp")));
 //
 //                    Data instanceData = new Data();
-//                    instanceData.setContentType("Instance"); // TODO: 23/03/2022 Info with JSON/kafka headers?
+//                    instanceData.setContentType("Instance"); // TODO: 23/03/2022 Object info with JSON/kafka headers?
 //                    instanceData.setContent(consumerRecord.value());
 //                    event.getData().put("instance", instanceData);
 //
@@ -109,7 +109,7 @@
 //
 //    private Event createEventWithHeaderProperties(Headers headers) {
 //        Event event = new Event();
-//        event.setOrgId("orgId"); // TODO: 22/03/2022 Application prop?
+//        event.setOrgId("orgId"); // TODO: 22/03/2022 Application prop or consumer record header?
 //        event.setCorrelationId(Long.parseLong(getHeaderValue(headers, "correlation.id")));
 //        event.setSourceApplication(getHeaderValue(headers, "source.application"));
 //        event.setSourceApplicationIntegrationId(getHeaderValue(headers, "source.application.integration.id"));
