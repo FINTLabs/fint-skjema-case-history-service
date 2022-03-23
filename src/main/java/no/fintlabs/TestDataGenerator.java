@@ -6,6 +6,7 @@ import no.fintlabs.model.Error;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,10 @@ import java.util.stream.IntStream;
 @Component
 public class TestDataGenerator {
 
-    public TestDataGenerator(EventRepository eventRepository) {
+    public TestDataGenerator(EventRepository eventRepository, @Value("${generateTestData}") boolean generateTestData) {
+        if (!generateTestData) {
+            return;
+        }
         eventRepository.saveAll(List.of(
                 createEvent(EventType.INFO, "info event 1", 1L, 1L, 2, 0),
                 createEvent(EventType.INFO, "info event 2", 1L, 1L, 1, 0),
