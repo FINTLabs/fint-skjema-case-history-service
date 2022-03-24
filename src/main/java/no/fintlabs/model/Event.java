@@ -62,10 +62,10 @@ public class Event {
     @JoinColumn(name = "event_id")
     @MapKeyColumn(name = "map_key")
     @JsonPropertyOrder(alphabetic = true)
-    private Map<String, no.fintlabs.model.Data> data = new HashMap<>();
+    private Map<String, no.fintlabs.model.Data> data;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_id")
-    private List<Error> errors = new ArrayList<>();
+    private List<Error> errors ;
 
 }
