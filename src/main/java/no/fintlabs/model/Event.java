@@ -9,8 +9,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +64,6 @@ public class Event {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_id")
-    private List<Error> errors ;
+    private List<Error> errors;
 
 }
