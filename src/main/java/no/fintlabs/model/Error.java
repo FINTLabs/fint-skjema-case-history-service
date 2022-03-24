@@ -18,19 +18,15 @@ public class Error {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     @JsonIgnore
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private long id;
 
-    @Column(name = "errorCode")
     private String errorCode;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "timestamp")
     private LocalDateTime timestamp;
 
     @ElementCollection
