@@ -1,16 +1,15 @@
 package no.fintlabs.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import no.fintlabs.skjemakafka.SkjemaEventHeaders;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
 @lombok.Data
 @NoArgsConstructor
@@ -25,35 +24,18 @@ public class Event {
     @Setter(AccessLevel.NONE)
     private long id;
 
-    private String orgId;
+    @Embedded
+    private SkjemaEventHeaders skjemaEventHeaders; // TODO: 26/03/2022 Move to skjema-fint-kafka
 
-    private String service;
-
-    private String sourceApplication;
-
-    private String sourceApplicationIntegrationId;
-
-    private String sourceApplicationInstanceId;
-
-    private long instanceId;
-
-    private long correlationId;
+    private String name;
 
     private LocalDateTime timestamp;
 
     @Enumerated(EnumType.STRING)
     private EventType type;
 
-    private String description;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "event_id")
-    @MapKeyColumn(name = "map_key")
-    @JsonPropertyOrder(alphabetic = true)
-    private Map<String, no.fintlabs.model.Data> data;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "event_id")
-    private List<Error> errors;
+    private Collection<Error> errors;
 
 }

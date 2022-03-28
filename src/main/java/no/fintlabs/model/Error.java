@@ -25,10 +25,6 @@ public class Error {
 
     private String errorCode;
 
-    private String description;
-
-    private LocalDateTime timestamp;
-
     @ElementCollection
     @CollectionTable(
             name = "error_args",

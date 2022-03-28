@@ -1,16 +1,15 @@
 package no.fintlabs;
 
 import lombok.extern.slf4j.Slf4j;
-import no.fintlabs.model.Data;
 import no.fintlabs.model.Error;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
-import org.springframework.beans.factory.annotation.Value;
+import no.fintlabs.skjemakafka.SkjemaEventHeaders;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,38 +17,42 @@ import java.util.stream.IntStream;
 
 @Slf4j
 @Component
+@ConditionalOnProperty(value = "generateTestData", havingValue = "true")
 public class TestDataGenerator {
 
-    public TestDataGenerator(EventRepository eventRepository, @Value("${generateTestData}") boolean generateTestData) {
-        if (!generateTestData) {
-            return;
-        }
+    public TestDataGenerator(EventRepository eventRepository) {
         eventRepository.saveAll(List.of(
-                createEvent(EventType.INFO, "info event 1", 1L, 1L, 2, 0),
-                createEvent(EventType.INFO, "info event 2", 1L, 1L, 1, 0),
-                createEvent(EventType.INFO, "info event 3", 1L, 1L, 3, 0),
-                createEvent(EventType.ERROR, "error event", 2L, 2L, 1, 2),
-                createEvent(EventType.INFO, "info event from retry", 3L, 2L, 1, 0)
+                createEvent("incoming-instance", EventType.INFO, 1L, null, null, null, null, 0),
+                createEvent("new-instance", EventType.INFO, 1L, 1L, null, null, null, 0),
+                createEvent("instance-to-case-mapping-error", EventType.ERROR, 1L, 1L, 1L, null, null, 4),
+                createEvent("reemitted-instance", EventType.INFO, 2L, 1L, null, null, null, 0),
+                createEvent("new-case", EventType.INFO, 2L, 1L, 2L, 1L, null, 0),
+                createEvent("dispatch-case", EventType.INFO, 2L, 1L, 2L, 1L, 1L, 0),
+                createEvent("case-dispatched-successfully", EventType.INFO, 2L, 1L, 2L, 1L, 1L, 0)
         ));
     }
 
-    private Event createEvent(EventType type, String description, long correlationId, long instanceId, int numOfData, int numOfErrors) {
+    private Event createEvent(String name, EventType type, Long correlationId, Long instanceId, Long configurationId, Long caseId, Long dispatchId, int numOfErrors) {
         Event event = new Event();
+        event.setSkjemaEventHeaders(
+                SkjemaEventHeaders
+                        .builder()
+                        .orgId("orgId")
+                        .service("service")
+                        .sourceApplication("sourceApplication")
+                        .sourceApplicationIntegrationId("sourceApplicationIntegrationId")
+                        .sourceApplicationInstanceId("sourceApplicationInstanceId")
+                        .correlationId(correlationId)
+                        .instanceId(instanceId)
+                        .configurationId(configurationId)
+                        .caseId(caseId)
+                        .dispatchId(dispatchId)
+                        .build()
+        );
+        event.setName(name);
         event.setType(type);
         event.setTimestamp(LocalDateTime.now());
-        event.setOrgId("orgId");
-        event.setDescription(description);
-        event.setCorrelationId(correlationId);
-        event.setSourceApplication("sourceApplication");
-        event.setSourceApplicationIntegrationId("sourceApplicationIntegrationId");
-        event.setSourceApplicationInstanceId("sourceApplicationInstanceId");
-        event.setInstanceId(instanceId);
-        event.setService("service");
 
-        Map<String, Data> dataMap = IntStream.range(0, numOfData)
-                .mapToObj(this::createDataEntry)
-                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
-        event.setData(dataMap);
 
         List<Error> errors = IntStream.range(0, numOfErrors)
                 .mapToObj(this::createError)
@@ -59,21 +62,12 @@ public class TestDataGenerator {
         return event;
     }
 
-    private AbstractMap.SimpleEntry<String, Data> createDataEntry(int num) {
-        Data data = new Data();
-        data.setContentType("Object");
-        data.setContent("data" + num + "Content");
-        return new AbstractMap.SimpleEntry<>("data" + num + "name", data);
-    }
-
     private Error createError(int num) {
         Error error = new Error();
         error.setErrorCode("error" + num + "Code");
-        error.setTimestamp(LocalDateTime.now().minusHours(1));
-        error.setDescription("error" + num + " description");
         error.setArgs(Map.of(
-                "arg1", "arg1value",
-                "arg2", "arg2Value"
+                "arg0", "arg0value",
+                "arg1", "arg1Value"
         ));
         return error;
     }
