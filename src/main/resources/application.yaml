@@ -1,6 +1,7 @@
 fint:
-  org-id: fintlabs.no
   kafka:
+    topic:
+      org-id: fintlabs.no
     application-id: fint-skjema-case-history-service
 spring:
   kafka:

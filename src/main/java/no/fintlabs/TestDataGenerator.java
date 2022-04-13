@@ -5,7 +5,7 @@ import no.fintlabs.model.Error;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
-import no.fintlabs.skjemakafka.SkjemaEventHeaders;
+import no.fintlabs.skjemakafka.InstanceFlowHeadersEmbeddable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
@@ -22,20 +22,20 @@ public class TestDataGenerator {
 
     public TestDataGenerator(EventRepository eventRepository) {
         eventRepository.saveAll(List.of(
-                createEvent("incoming-instance", EventType.INFO, 1L, null, null, null, null, 0),
-                createEvent("new-instance", EventType.INFO, 1L, 1L, null, null, null, 0),
-                createEvent("instance-to-case-mapping-error", EventType.ERROR, 1L, 1L, 1L, null, null, 4),
-                createEvent("reemitted-instance", EventType.INFO, 2L, 1L, null, null, null, 0),
-                createEvent("new-case", EventType.INFO, 2L, 1L, 2L, 1L, null, 0),
-                createEvent("dispatch-case", EventType.INFO, 2L, 1L, 2L, 1L, 1L, 0),
-                createEvent("case-dispatched-successfully", EventType.INFO, 2L, 1L, 2L, 1L, 1L, 0)
+                createEvent("incoming-instance", EventType.INFO, "1", null, null, null, null, 0),
+                createEvent("new-instance", EventType.INFO, "1", "1", null, null, null, 0),
+                createEvent("instance-to-case-mapping-error", EventType.ERROR, "1", "1", "1", null, null, 4),
+                createEvent("reemitted-instance", EventType.INFO, "2", "1", null, null, null, 0),
+                createEvent("new-case", EventType.INFO, "2", "1", "2", "1", null, 0),
+                createEvent("dispatch-case", EventType.INFO, "2", "1", "2", "1", "1", 0),
+                createEvent("case-dispatched-successfully", EventType.INFO, "2", "1", "2", "1", "1", 0)
         ));
     }
 
-    private Event createEvent(String name, EventType type, Long correlationId, Long instanceId, Long configurationId, Long caseId, Long dispatchId, int numOfErrors) {
+    private Event createEvent(String name, EventType type, String correlationId, String instanceId, String configurationId, String caseId, String dispatchId, int numOfErrors) {
         Event event = new Event();
-        event.setSkjemaEventHeaders(
-                SkjemaEventHeaders
+        event.setInstanceFlowHeaders(
+                InstanceFlowHeadersEmbeddable
                         .builder()
                         .orgId("orgId")
                         .service("service")

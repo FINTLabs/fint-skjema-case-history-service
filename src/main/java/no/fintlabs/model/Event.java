@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import no.fintlabs.skjemakafka.SkjemaEventHeaders;
+import no.fintlabs.skjemakafka.InstanceFlowHeadersEmbeddable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class Event {
     private long id;
 
     @Embedded
-    private SkjemaEventHeaders skjemaEventHeaders; // TODO: 26/03/2022 Move to skjema-fint-kafka
+    private InstanceFlowHeadersEmbeddable instanceFlowHeaders;
 
     private String name;
 

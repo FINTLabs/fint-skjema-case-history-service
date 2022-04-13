@@ -9,10 +9,10 @@ import java.util.Collection;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    Collection<Event> findAllBySkjemaEventHeadersInstanceId(long instanceId);
+    Collection<Event> findAllByInstanceFlowHeadersInstanceId(String instanceId);
 
-    Collection<Event> findAllBySkjemaEventHeadersCorrelationId(long correlationId);
+    Collection<Event> findAllByInstanceFlowHeadersCorrelationId(String correlationId);
 
-    Collection<Event> findAllBySkjemaEventHeadersSourceApplicationIntegrationId(String sourceApplicationIntegrationId);
+    Collection<Event> findAllByInstanceFlowHeadersSourceApplicationIntegrationId(String sourceApplicationIntegrationId);
 
 }

@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @Data
 @Builder
 @Embeddable
-public class SkjemaEventHeaders {
+public class InstanceFlowHeadersEmbeddable {
 
     private String orgId;
 
@@ -24,14 +24,14 @@ public class SkjemaEventHeaders {
 
     private String sourceApplicationInstanceId;
 
-    private Long correlationId;
+    private String correlationId;
 
-    private Long instanceId;
+    private String instanceId;
 
-    private Long configurationId;
+    private String configurationId;
 
-    private Long caseId;
+    private String caseId;
 
-    private Long dispatchId;
+    private String dispatchId;
 
 }
