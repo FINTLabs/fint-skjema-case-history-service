@@ -1,6 +1,6 @@
 package no.fintlabs.consumers;
 
-import no.fintlabs.flyt.kafka.event.FlytEventConsumerFactoryService;
+import no.fintlabs.flyt.kafka.event.InstanceFlowEventConsumerFactoryService;
 import no.fintlabs.kafka.event.topic.EventTopicNameParameters;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
@@ -18,16 +18,16 @@ import java.time.ZoneId;
 public class InfoEventConsumerConfiguration {
 
     private final EventRepository eventRepository;
-    private final FlytEventConsumerFactoryService flytEventConsumerFactoryService;
+    private final InstanceFlowEventConsumerFactoryService instanceFlowEventConsumerFactoryService;
     private final InstanceFlowHeadersEmbeddableMapper instanceFlowHeadersEmbeddableMapper;
 
 
     public InfoEventConsumerConfiguration(
             EventRepository eventRepository,
-            FlytEventConsumerFactoryService flytEventConsumerFactoryService,
+            InstanceFlowEventConsumerFactoryService instanceFlowEventConsumerFactoryService,
             InstanceFlowHeadersEmbeddableMapper skjemaEventHeadersMapper) {
         this.eventRepository = eventRepository;
-        this.flytEventConsumerFactoryService = flytEventConsumerFactoryService;
+        this.instanceFlowEventConsumerFactoryService = instanceFlowEventConsumerFactoryService;
         this.instanceFlowHeadersEmbeddableMapper = skjemaEventHeadersMapper;
     }
 
@@ -52,7 +52,7 @@ public class InfoEventConsumerConfiguration {
 //    }
 
     private ConcurrentMessageListenerContainer<String, Object> createInfoEventListener(String eventName) {
-        return flytEventConsumerFactoryService.createInstanceFlowFactory(
+        return instanceFlowEventConsumerFactoryService.createFactory(
                 Object.class,
                 instanceFlowConsumerRecord -> {
                     Event event = new Event();

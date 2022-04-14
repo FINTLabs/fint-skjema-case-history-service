@@ -1,6 +1,6 @@
 package no.fintlabs.consumers;
 
-import no.fintlabs.flyt.kafka.event.error.FlytErrorEventConsumerFactoryService;
+import no.fintlabs.flyt.kafka.event.error.InstanceFlowErrorEventConsumerFactoryService;
 import no.fintlabs.kafka.event.error.ErrorCollection;
 import no.fintlabs.kafka.event.error.topic.ErrorEventTopicNameParameters;
 import no.fintlabs.model.Error;
@@ -22,16 +22,16 @@ import java.util.stream.Collectors;
 public class ErrorEventConsumerConfiguration {
 
     private final EventRepository eventRepository;
-    private final FlytErrorEventConsumerFactoryService flytErrorEventConsumerFactoryService;
+    private final InstanceFlowErrorEventConsumerFactoryService instanceFlowErrorEventConsumerFactoryService;
     private final InstanceFlowHeadersEmbeddableMapper instanceFlowHeadersEmbeddableMapper;
 
     public ErrorEventConsumerConfiguration(
             EventRepository eventRepository,
-            FlytErrorEventConsumerFactoryService flytErrorEventConsumerFactoryService,
+            InstanceFlowErrorEventConsumerFactoryService instanceFlowErrorEventConsumerFactoryService,
             InstanceFlowHeadersEmbeddableMapper instanceFlowHeadersEmbeddableMapper
     ) {
         this.eventRepository = eventRepository;
-        this.flytErrorEventConsumerFactoryService = flytErrorEventConsumerFactoryService;
+        this.instanceFlowErrorEventConsumerFactoryService = instanceFlowErrorEventConsumerFactoryService;
         this.instanceFlowHeadersEmbeddableMapper = instanceFlowHeadersEmbeddableMapper;
     }
 
@@ -51,7 +51,7 @@ public class ErrorEventConsumerConfiguration {
 //    }
 
     private ConcurrentMessageListenerContainer<String, ErrorCollection> createErrorEventListener(String errorEventName) {
-        return flytErrorEventConsumerFactoryService.createInstanceFlowFactory(
+        return instanceFlowErrorEventConsumerFactoryService.createFactory(
                 instanceFlowConsumerRecord -> {
                     Event event = new Event();
                     event.setInstanceFlowHeaders(
