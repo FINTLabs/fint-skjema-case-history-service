@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import no.fintlabs.skjemakafka.InstanceFlowHeadersEmbeddable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -7,7 +7,7 @@ import no.fintlabs.model.Error;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
-import no.fintlabs.skjemakafka.InstanceFlowHeadersEmbeddableMapper;
+import no.fintlabs.InstanceFlowHeadersEmbeddableMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.listener.CommonLoggingErrorHandler;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;

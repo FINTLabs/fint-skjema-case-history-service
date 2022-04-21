@@ -5,7 +5,7 @@ import no.fintlabs.model.Error;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
-import no.fintlabs.skjemakafka.InstanceFlowHeadersEmbeddable;
+import no.fintlabs.model.InstanceFlowHeadersEmbeddable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 

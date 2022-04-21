@@ -1,6 +1,7 @@
-package no.fintlabs.skjemakafka;
+package no.fintlabs;
 
 import no.fintlabs.flyt.kafka.headers.InstanceFlowHeaders;
+import no.fintlabs.model.InstanceFlowHeadersEmbeddable;
 import org.springframework.stereotype.Service;
 
 @Service
