@@ -14,6 +14,7 @@ public class InstanceFlowHeadersEmbeddableMapper {
                 .sourceApplicationIntegrationId(instanceFlowHeaders.getSourceApplicationIntegrationId())
                 .sourceApplicationInstanceId(instanceFlowHeaders.getSourceApplicationInstanceId())
                 .correlationId(instanceFlowHeaders.getCorrelationId())
+                .integrationId(instanceFlowHeaders.getIntegrationId())
                 .instanceId(instanceFlowHeaders.getInstanceId())
                 .configurationId(instanceFlowHeaders.getConfigurationId())
                 .caseId(instanceFlowHeaders.getCaseId())

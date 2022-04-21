@@ -26,6 +26,8 @@ public class InstanceFlowHeadersEmbeddable {
 
     private String correlationId;
 
+    private String integrationId;
+
     private String instanceId;
 
     private String configurationId;
