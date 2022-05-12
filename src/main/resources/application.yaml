@@ -2,6 +2,7 @@ fint:
   kafka:
     topic:
       org-id: fintlabs.no
+      domain-context: flyt
     application-id: fint-skjema-case-history-service
 spring:
   kafka:
@@ -9,7 +10,7 @@ spring:
     consumer:
       group-id: fint-skjema-case-history-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/fint-skjema-case-history-service-postgres
+    url: jdbc:postgresql://localhost:5434/fint-skjema-case-history-service-postgres
     username: postgres
     password: password
   jpa:

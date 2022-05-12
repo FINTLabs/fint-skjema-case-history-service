@@ -1,11 +1,12 @@
 package no.fintlabs.consumers;
 
+import no.fintlabs.InstanceFlowHeadersEmbeddableMapper;
 import no.fintlabs.flyt.kafka.event.InstanceFlowEventConsumerFactoryService;
 import no.fintlabs.kafka.event.topic.EventTopicNameParameters;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
-import no.fintlabs.InstanceFlowHeadersEmbeddableMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.listener.CommonLoggingErrorHandler;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
@@ -31,25 +32,25 @@ public class InfoEventConsumerConfiguration {
         this.instanceFlowHeadersEmbeddableMapper = skjemaEventHeadersMapper;
     }
 
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, String> newInstanceEventListener() {
-//        return createInfoEventListener("new-instance");
-//    }
-//
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, Object> newCaseEventListener() {
-//        return createInfoEventListener("new-or-updated-case");
-//    }
-//
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, String> dispatchCaseEventListener() {
-//        return createInfoEventListener("dispatch-case");
-//    }
-//
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, String> caseDispatchedSuccessfullyEventListener() {
-//        return createInfoEventListener("case-dispatched-successfully");
-//    }
+    @Bean
+    public ConcurrentMessageListenerContainer<String, Object> incomingInstanceEventListener() {
+        return createInfoEventListener("incoming-instance");
+    }
+
+    @Bean
+    public ConcurrentMessageListenerContainer<String, Object> newInstanceEventListener() {
+        return createInfoEventListener("new-instance");
+    }
+
+    @Bean
+    public ConcurrentMessageListenerContainer<String, Object> newCaseEventListener() {
+        return createInfoEventListener("new-or-updated-case");
+    }
+
+    @Bean
+    public ConcurrentMessageListenerContainer<String, Object> caseDispatchedSuccessfullyEventListener() {
+        return createInfoEventListener("case-dispatched");
+    }
 
     private ConcurrentMessageListenerContainer<String, Object> createInfoEventListener(String eventName) {
         return instanceFlowEventConsumerFactoryService.createFactory(

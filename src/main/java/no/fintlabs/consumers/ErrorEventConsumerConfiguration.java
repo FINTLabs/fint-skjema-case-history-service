@@ -1,5 +1,6 @@
 package no.fintlabs.consumers;
 
+import no.fintlabs.InstanceFlowHeadersEmbeddableMapper;
 import no.fintlabs.flyt.kafka.event.error.InstanceFlowErrorEventConsumerFactoryService;
 import no.fintlabs.kafka.event.error.ErrorCollection;
 import no.fintlabs.kafka.event.error.topic.ErrorEventTopicNameParameters;
@@ -7,7 +8,7 @@ import no.fintlabs.model.Error;
 import no.fintlabs.model.Event;
 import no.fintlabs.model.EventType;
 import no.fintlabs.repositories.EventRepository;
-import no.fintlabs.InstanceFlowHeadersEmbeddableMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.listener.CommonLoggingErrorHandler;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
@@ -35,20 +36,20 @@ public class ErrorEventConsumerConfiguration {
         this.instanceFlowHeadersEmbeddableMapper = instanceFlowHeadersEmbeddableMapper;
     }
 
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, ErrorCollection> instanceProcessingErrorListener() {
-//        return createErrorEventListener("instance-processing-error");
-//    }
-//
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, ErrorCollection> instanceToCaseMappingErrorListener() {
-//        return createErrorEventListener("instance-to-case-mapping-error");
-//    }
-//
-//    @Bean
-//    public ConcurrentMessageListenerContainer<String, ErrorCollection> caseDispatchingErrorListener() {
-//        return createErrorEventListener("case-dispatching-error");
-//    }
+    @Bean
+    public ConcurrentMessageListenerContainer<String, ErrorCollection> instanceProcessingErrorListener() {
+        return createErrorEventListener("instance-processing");
+    }
+
+    @Bean
+    public ConcurrentMessageListenerContainer<String, ErrorCollection> instanceToCaseMappingErrorListener() {
+        return createErrorEventListener("instance-to-case-mapping");
+    }
+
+    @Bean
+    public ConcurrentMessageListenerContainer<String, ErrorCollection> caseDispatchingErrorListener() {
+        return createErrorEventListener("case-dispatch");
+    }
 
     private ConcurrentMessageListenerContainer<String, ErrorCollection> createErrorEventListener(String errorEventName) {
         return instanceFlowErrorEventConsumerFactoryService.createFactory(
