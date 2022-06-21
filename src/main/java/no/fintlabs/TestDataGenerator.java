@@ -28,7 +28,7 @@ public class TestDataGenerator {
                 createEvent("reemitted-instance", EventType.INFO, "2", "1", null, null, null, null, 0),
                 createEvent("new-case", EventType.INFO, "2", "1", "2", "1", null, null, 0),
                 createEvent("dispatch-case", EventType.INFO, "2", "1", "2", "1", "1", null, 0),
-                createEvent("case-dispatched-successfully", EventType.INFO, "2", "1", "2", "1", "1", "1", 0)
+                createEvent("case-dispatched", EventType.INFO, "2", "1", "2", "1", "1", "1", 0)
         ));
     }
 
